@@ -40,8 +40,8 @@ def generate_signals(data, buy_conditions, sell_conditions):
     sell_condition2.index = data.index
     sell_condition3.index = data.index
 
-    data['Buy_Signal'] = buy_condition1 & buy_condition2 & buy_condition3
-    data['Sell_Signal'] = sell_condition1 & sell_condition2 & sell_condition3
+    data['Buy_Signal'] = buy_condition1 | buy_condition2 | buy_condition3
+    data['Sell_Signal'] = sell_condition1 | sell_condition2 | sell_condition3
     return data
 
 def eval_condition(data, left, operator, right):
@@ -105,7 +105,12 @@ def plot_signals(data, ticker, selected_indicators):
         title=f"Trading Signals and Indicators for {ticker}",
         xaxis_title="Date",
         yaxis_title="Price",
-        template="plotly_dark"
+        xaxis=dict(showgrid=True),
+        yaxis=dict(showgrid=True),
+        plot_bgcolor='rgba(0, 0, 0, 0.85)', 
+        paper_bgcolor='rgba(0, 0, 0, 0.9)',
+        template="plotly_dark",
+        xaxis_rangeslider_visible=False
     )
     st.plotly_chart(fig)
 
